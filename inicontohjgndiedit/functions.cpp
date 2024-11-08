@@ -3,7 +3,10 @@
 #include <iomanip>
 using namespace std;
 
-
+//nbl
+//raihan
+//kontol
+//fiernazanjing
 #define max 10
 string mhs[max][4], user[2] = {"admin","123"}, username, pass, nim_baru, nama_baru, jurusan_baru, buku[10][5] = {{"The Pragmatic Programmer: Your Journey to Mastery","Andrew Hunt, David Thomas","Addison-Wesley Professional","1999","Tersedia"},{"Clean Code: A Handbook of Agile Software Craftsmanship","Robert C. Martin","Prentice Hall","2008","Tersedia"},{"Code Complete: A Practical Handbook of Software Construction","Steve McConnell","Microsoft Press","2004","Tersedia"},{"Introduction to Algorithms","Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, Clifford Stein","MIT Press","2009","Tersedia"},{"Structure and Interpretation of Computer Programs","Harold Abelson, Gerald Jay Sussman, Julie Sussman","MIT Press","1996","Tersedia"},{"Sang Pemimpi","Andrea Hirata","Bentang Pustaka","2006","Tersedia"},{"Daun yang Jatuh Tak Pernah Membenci Angin","Tere Liye","Gramedia Pustaka Utama","2010","Tersedia"},{"Jejak Langkah","Pramoedya Ananta Toer","Hasta Mitra","1985","Tersedia"},{"Cantik Itu Luka","Eka Kurniawan","Gramedia Pustaka Utama", "2002","Tersedia"},{"Laskar Pelangi","Andrea Hirata", "Bentang Pustaka","2005","Tersedia"}};
 string nim_peminjam, temp1, temp2, temp3, temp4;
