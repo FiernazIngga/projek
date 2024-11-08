@@ -2,7 +2,7 @@
 using namespace std;
 
 int main() {
-	int hasil, pilihan1;
+	int hasil, pilihan1, login;
 	char pilihan2, data, kembali_anggota, kembali_anggota2, ulang, kembali_admin, kembali_admin2, logout, logout2, menu_edit, ulangi_buku, kembali_lihat, kembali_daftar, kembali_login, loginAs;
 	string Nim, pass, username;
 
@@ -22,7 +22,7 @@ int main() {
 			{
 				kembali_lihat = 'y', 'Y';
 				system("cls");
-				/*cetakSemuaBuku();*/
+				cetakSemuaBuku();
 				cout << "Apakah anda ingin kembali? y / n : ";
 				cin >> kembali_lihat;
 			} while (kembali_lihat == 'n' || kembali_lihat == 'N');
@@ -41,9 +41,8 @@ int main() {
 			do
 			{
 				system("cls");
-				int pengguna;
-				bool login = false; // Menggunakan boolean untuk cek login berhasil atau tidak
-				char kembali_login;
+                kembali_login = 'n';
+                login = 100;
 				cout << "Login" << endl;
 				cout << "Masukkan NIM anda     : ";
 				cin >> Nim;
@@ -52,7 +51,7 @@ int main() {
 
 				bool data_valid = false; // Cek validitas data
 				for (int i = 0; i < 99; i++) {
-					if (Nim == "admin" && pass == "123") {
+					if (Nim == user[i][0] && pass == user[i][3]) {
 						pengguna = i;
 						login = 1;
 						data_valid = true;
@@ -71,21 +70,29 @@ int main() {
 			case '2':
 			do
 			{
-				int i = 100;
-				kembali_login = 'y';
-				cout << "Login : ";
-				cout << "Masukkan NIM anda     : ";
+				system("cls");
+                kembali_login = 'n';
+                login = 100;
+				cout << "Login" << endl;
+				cout << "Masukkan username anda     : ";
 				cin >> username;
 				cout << "Masukkan password anda : ";
-				cin >> pass;
-				for (int i = 0; i < 2; i++)
-				{
-					if (username == user[i][0] && pass == user[i][1])
-					{
+				cin >> password;
+
+				bool data_valid = false; // Cek validitas data
+				for (int i = 0; i < 99; i++) {
+					if (username == "admin" && password == "123") {
 						login = 2;
-					} else {
-						kembali_login = 'y';
+						data_valid = true;
 					}
+				}
+
+				if (!data_valid) {
+					cout << "Nim atau Password Salah!!!\nAtau anda belum mendaftar" << endl;
+					cout << "Apakah anda ingin login ulang? y / n : ";
+					cin >> kembali_login;
+				} else {
+					kembali_login = 'n'; // Akhiri loop jika login berhasil
 				}
 			} while (kembali_login == 'y');
 				break;

@@ -1,31 +1,29 @@
 #include "buku.h"
 #define max 100
 
-// user[][] = {nama, nim, fakultas, email, password, buku 1, buku 2, buku 3}
+// user[][] = {nim, fakultas, email, password, buku 1, buku 2, buku 3}
 
-string user[max][8];
-string admin[1][2] = {"admin","123"};
-string nama, nim, fakultas, password, email, fakul;
+string user[max][7];
+string nim, fakultas, password, email, fakul;
 char pass[100], konfirmasi, ulang;
-int login, pengguna, daftaruser;
+int login, pengguna, daftaruser=0;
 
 
 
 void daftar(){
 	char ulang;
-	cout << "Masukkan nama           : ";
-	getline(cin, nama);
-	cout << "Masukkan NIM            : ";
-	getline(cin, nim);
-	cout << "Masukkan Fakultas       :  ";
-	getline(cin, fakul);
+	cout << "Masukkan NIM                            : ";
+	cin >> nim;
+	cout << "Masukkan Fakultas (FTI/FEB/FISIP/FTM/FP): ";
+	cin >> fakul;
 	do {
         if (ulang == 'y') {
             cout << "Email yang anda masukkan bukan email kampus.\nGunakan email kampus yang terdapat @student.upnyk.ac.id" << endl;
         }
         ulang = 'n';
         cout << "Masukkan Email Kampus   : ";
-        getline(cin, email);
+        cin >> email;
+        cin.ignore();
         // Cek apakah email mengandung @kampus.ac
         if (email.size() >= 20 && email.substr(email.size() - 20) == "@student.upnyk.ac.id") {
             ulang = 'n';
@@ -43,12 +41,11 @@ void daftar(){
 		cin.getline(pass,sizeof(pass));
 		if (strlen(pass) >= 8)
 		{
-			daftaruser = 0;
-			user[daftaruser][0] = nama;
-			user[daftaruser][1] = nim;
-			user[daftaruser][2] = fakultas;
-			user[daftaruser][3] = email;
-			user[daftaruser][4] = pass;
+			user[daftaruser][0] = nim;
+			user[daftaruser][1] = fakul;
+			user[daftaruser][2] = email;
+			user[daftaruser][3] = pass;
+            cout << user[daftaruser][0] << " " << user[daftaruser][1] << " "<< user[daftaruser][2] <<  " " << user[daftaruser][3] << endl;
 			daftaruser++;
 		} else {
 			ulang = 'y';
