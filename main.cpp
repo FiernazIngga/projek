@@ -63,7 +63,7 @@ int main() {
 					cout << "Apakah anda ingin login ulang? y / n : ";
 					cin >> kembali_login;
 				} else {
-					kembali_login = 'n'; // Akhiri loop jika login berhasil
+					kembali_login = 'n';
 				}
 			} while (kembali_login == 'y');
 				break;
@@ -92,7 +92,7 @@ int main() {
 					cout << "Apakah anda ingin login ulang? y / n : ";
 					cin >> kembali_login;
 				} else {
-					kembali_login = 'n'; // Akhiri loop jika login berhasil
+					kembali_login = 'n';
 				}
 			} while (kembali_login == 'y');
 				break;
@@ -171,58 +171,12 @@ int main() {
 				{
 					kembali_admin = 'n', 'N';
 					system("cls");
-					cout << "1. Edit Daftar Buku \n2. Tampilkan Data Peminjam \n3. Tambah Data Peminjam \n4. Ubah Data Peminjam \n5. Hapus Data Peminjam \n6. Log Out" << endl;
+					cout << "1. Tampilkan Data Peminjam \n2. Tambah Data Peminjam \n3. Ubah Data Peminjam \n4. Hapus Data Peminjam \n5. Log Out" << endl;
 					cout << "Pilihan : ";
 					cin >> pilihan2;
 
 					switch (pilihan2) {
 					case '1':
-						do
-						{
-							system("cls");
-							cout << "Menu Edit Buku " << endl;
-							cout << "1. Tambah Buku \n2. Kurangi Buku \n3. Edit Buku \n4. Kembali \nMasukkan pilihan dengan mengisikan angka (1/2/3) : ";
-							cin >> menu_edit;
-							switch (menu_edit)
-							{
-							case '1':
-								do
-								{
-									system("cls");
-									cout << "Tambah buku" << endl;
-									cout << "Apakah anda ingin kembali? y / n : ";
-									cin >> ulangi_buku;
-								} while (ulangi_buku == 'n' || ulangi_buku == 'N');
-								break;
-							case '2':
-								do
-								{
-									system("cls");
-									cout << "Kurangi buku" << endl;
-									cout << "Apakah anda ingin kembali? y / n : ";
-									cin >> ulangi_buku;
-								} while (ulangi_buku == 'n' || ulangi_buku == 'N');
-								break;
-							case '3':
-								do
-								{
-									system("cls");
-									cout << "Edit buku" << endl;
-									cout << "Apakah anda ingin kembali? y / n : ";
-									cin >> ulangi_buku;
-								} while (ulangi_buku == 'n' || ulangi_buku == 'N');
-								break;
-							case '4':
-								kembali_admin = 'y';
-								ulangi_buku = 'n';
-								break;
-							default:
-								break;
-							}
-						} while (ulangi_buku == 'y' || ulangi_buku == 'Y');
-						break;
-
-					case '2':
 						do
 						{
 							system("cls");
@@ -232,7 +186,7 @@ int main() {
 						} while (kembali_admin == 'n' || kembali_admin == 'N');
 						break;
 
-					case '3':
+					case '2':
 						do
 						{
 							system("cls");
@@ -242,7 +196,7 @@ int main() {
 						} while (kembali_admin == 'n' || kembali_admin == 'N');
 						break;
 
-					case '4':
+					case '3':
 						do
 						{
 							system("cls");
@@ -252,14 +206,14 @@ int main() {
 						} while (kembali_admin == 'n' || kembali_admin == 'N');
 						break;
 
-					case '5':
+					case '4':
 						system("cls");
 						cout << "Hapus data peminjam" << endl;
 						cout << "Apakah anda ingin kembali? y / n : ";
 						cin >> kembali_admin;
 						break;
 
-					case '6':
+					case '5':
 						logout2 = 'n';
 						system("cls");
 						cout << "Apakah anda yakin ingin logout? y / n : ";

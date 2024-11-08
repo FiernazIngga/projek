@@ -4,9 +4,9 @@
 // user[][] = {nim, fakultas, email, password, buku 1, buku 2, buku 3}
 
 string user[max][7];
-string nim, fakultas, password, email, fakul;
+string nim, fakultas, password, email, fakul, genreBuku, negaraBuku;
 char pass[100], konfirmasi, ulang;
-int login, pengguna, daftaruser=0;
+int login, pengguna, daftaruser=0, indeksBuku = 4;
 
 
 
@@ -53,70 +53,233 @@ void daftar(){
 	} while (ulang == 'y');
 }
 
+void genreSemuaBuku(){
+    for (int i = 0; i < 99; i++)
+    {
+        for (int j = 0; j < 99; j++)
+        {
+            if (buku[i][4] != buku[i++][4]){
+                if ( buku[j][4] != buku[j++][4])
+                {
+                    cout << buku[i][4] << endl;
+                }
+            }
+        }
+    }
+}
+
+void negaraSemuaBuku(){
+    for (int i = 0; i < 99; i++)
+    {
+        for (int j = 0; j < 99; j++)
+        {
+            if (buku[i][5] != buku[i++][5]){
+                if ( buku[j][5] != buku[j++][5])
+                {
+                    cout << buku[i][5] << endl;
+                }
+            }
+        }
+    }
+}
 
 void pinjam(){
 	konfirmasi = 'n', ulang = 'n';
 	int pilihan;
 	string judulBuku;
 	cout << "Selamat datang di Perpustakaan IF-C" << endl;
-	cout << "Pilih buku anda berdasarkan \1. Judul buku \n2.Genre buku \n3. Tahun terbit buku \n4. Asal Negara \n5. Penulis : ";
+	cout << "Pilih buku anda berdasarkan \n1. Judul buku \n2.Genre buku \n3. Asal Negara : ";
 	cin >> pilihan;
+    cin.ignore();
 	switch (pilihan)
 	{
 	case 1:
 		do
 		{
 			konfirmasi = 'n', ulang = 'n';
+            bool cekBuku = false;
 			for (int i = 0; i < 99; i++)
 			{
-				cout << i+1 <<" "<< buku[i][0] << endl;
+				cout << i+1 <<" "<< buku[i][0] << ". Keterangan Buku : " << buku[i][6] << endl;
 			}
-			cout << "Masukkan nomor dari judul buku yang ingin anda pinjam : ";
+			cout << "Masukkan judul buku yang ingin anda pinjam : ";
 			getline(cin, judulBuku);
 			for (int i = 0; i < 99; i++)
 			{
 				if (judulBuku == buku[i][0])
 				{
-					cout << "Apakah anda ingin meminjam buku " << buku[i][0] << " ? ";
-					cin >> konfirmasi;
-					if (konfirmasi == 'y')
-					{
-						user[pengguna][5] = buku[i][0];
-					} else {
-						ulang = 'y';
-					}
+                    cekBuku = true;
+					if (buku[i][6] == "Tersedia")
+                    {
+                        cout << "Apakah anda ingin meminjam buku " << buku[i][0] << " ? ";
+                        cin >> konfirmasi;
+                        if (konfirmasi == 'y')
+                        {
+                            if (indeksBuku > 6)
+                            {
+                                cout << "Anda telah memenuhi batasan peminjaman buku.\nSilahkan kembalikan buku terlebih dahulu." << endl;
+                            } else {
+                                user[pengguna][indeksBuku] = buku[i][0];
+                                buku[i][6] = "Dipinjam";
+                                indeksBuku++;
+                            }
+                        } else {
+                            ulang = 'y';
+                        }
+                    } else {
+                        cout << "Buku telah dipinjam, silahkan pinjam buku yang lain." << endl;
+                        cout << "Apakah anda ingin memilih buku yang lain? (y/n): ";
+                        cin >> ulang;
+                    }
 				}
 			}
+            if (!cekBuku)
+            {
+                system("cls");
+                cout << "Buku yang anda cari tidak ada. \nPastikan anda mengetiknya dengan benar!!" << endl;
+                ulang = 'y';
+                system("pause");
+            }
 		} while (ulang == 'y');
 		break;
-	// case 2:
-	// 	/* code */
-	// 	break;
-	// case 3:
-	// 	/* code */
-	// 	break;
-	// case 4:
-	// 	/* code */
-	// 	break;
-	// case 5:
-	// 	/* code */
-	// 	break;
-	
+	case 2:
+    do
+    {
+        konfirmasi = 'n', ulang = 'n';
+        bool cekBuku = false;
+        int noBuku = 1;
+        genreSemuaBuku();
+        cin.ignore();
+        cout << "Masukkan genre buku yang ingin anda pinjam : ";
+        getline(cin, genreBuku);
+        for (int i = 0; i < 99; i++)
+        {
+            if (buku[i][4] == genreBuku)
+            {
+                cout << setw(2) << noBuku << " | "
+							<< setw(55) << left << buku[i][0] << " | "
+							<< setw(7) << left << buku[i][4] << endl;
+                            noBuku++;
+            }   
+        }
+        cout << "Masukkan judul buku yang ingin anda pinjam : ";
+        getline(cin, judulBuku); 
+        for (int i = 0; i < 99; i++)
+        {
+            if (judulBuku == buku[i][0])
+            {
+                cekBuku = true;
+                if (buku[i][6] == "Tersedia")
+                {
+                    cout << "Apakah anda ingin meminjam buku " << buku[i][0] << " ? ";
+                    cin >> konfirmasi;
+                    if (konfirmasi == 'y')
+                    {
+                        if (indeksBuku > 6)
+                        {
+                            cout << "Anda telah memenuhi batasan peminjaman buku.\nSilahkan kembalikan buku terlebih dahulu." << endl;
+                        } else {
+                            user[pengguna][indeksBuku] = buku[i][0];
+                            buku[i][6] = "Dipinjam";
+                            indeksBuku++;
+                        }
+                    } else {
+                        ulang = 'y';
+                    }
+                } else {
+                    cout << "Buku telah dipinjam, silahkan pinjam buku yang lain." << endl;
+                    cout << "Apakah anda ingin memilih buku yang lain? (y/n): ";
+                    cin >> ulang;
+                }
+                
+            }
+        }
+        if (!cekBuku)
+            {
+                system("cls");
+                cout << "Buku yang anda cari tidak ada. \nPastikan anda mengetiknya dengan benar!!" << endl;
+                ulang = 'y';
+                system("pause");
+            }
+    } while (ulang == 'y');
+		break;
+	case 3:
+	do
+    {
+        system("cls");
+        konfirmasi = 'n', ulang = 'n';
+        bool cekBuku = false;
+        int noBuku = 1;
+        negaraSemuaBuku();
+        cout << "Masukkan negara buku yang ingin anda pinjam : ";
+        getline(cin, negaraBuku);
+        for (int i = 0; i < 99; i++)
+        {
+            if (buku[i][5] == negaraBuku)
+            {
+                cout << setw(2) << noBuku << " | "
+							<< setw(55) << left << buku[i][0] << " | "
+							<< setw(7) << left << buku[i][5] << endl;
+                            noBuku++;
+            }   
+        }
+        cout << "Masukkan judul buku yang ingin anda pinjam : ";
+        getline(cin, judulBuku); 
+        for (int i = 0; i < 99; i++)
+        {
+            if (judulBuku == buku[i][0])
+            {
+                cekBuku = true;
+                if (buku[i][6] == "Tersedia")
+                {
+                    cout << "Apakah anda ingin meminjam buku " << buku[i][0] << " ? ";
+                    cin >> konfirmasi;
+                    if (konfirmasi == 'y')
+                    {
+                        if (indeksBuku > 6)
+                        {
+                            cout << "Anda telah memenuhi batasan peminjaman buku.\nSilahkan kembalikan buku terlebih dahulu." << endl;
+                        } else {
+                            user[pengguna][indeksBuku] = buku[i][0];
+                            buku[i][6] = "Dipinjam";
+                            indeksBuku++;
+                        }
+                    } else {
+                        ulang = 'y';
+                    }
+                } else {
+                    cout << "Buku telah dipinjam, silahkan pinjam buku yang lain." << endl;
+                    cout << "Apakah anda ingin memilih buku yang lain? (y/n): ";
+                    cin >> ulang;
+                }
+                
+            }
+        }
+        if (!cekBuku)
+            {
+                system("cls");
+                cout << "Buku yang anda cari tidak ada. \nPastikan anda mengetiknya dengan benar!!" << endl;
+                ulang = 'y';
+                system("pause");
+            }
+    } while (ulang == 'y');
+		break;
 	default:
 		break;
 	}
-	// for (int i = 0; i < 6; i++)
-	// {
-		
-	// }
-	
 }
 
 
 void tampil(){
 	int pilihan;
-	cout << user[pengguna][0] << endl;
-	cout << user[pengguna][1] << endl;
+    cout << endl;
+	cout << user[pengguna][0] << "0" << endl;
+	cout << user[pengguna][1] << "1"  << endl;
+	cout << user[pengguna][2] << "2"  << endl;
+	cout << user[pengguna][3] << "3"  << endl;
+	cout << user[pengguna][4] << "4"  << endl;
+	cout << user[pengguna][5] << "5"  << endl;
+	cout << user[pengguna][6] << endl;
 }
 
 
@@ -178,13 +341,12 @@ void cetakSemuaBuku(){
 		cout << "Daftar buku-buku yang terdapat di Perpustakaan IF-C" << endl;
 		cout << setw(123) << setfill('=') << "" << endl;
 		cout << setfill(' ');
-		cout << "NO  |  Judul Buku                                             | Tahun   | Genre                | Negara        | Tersedia  |" << endl;
+		cout << "NO |  Judul Buku                                             | Tahun   | Genre                | Negara        | Tersedia  |" << endl;
 		cout << setw(124) << setfill('-') << "-" << endl;  
 		cout << setfill(' ');
-		cout << endl;
 		for (int i = 0; i < 99; i++)
 		{      
-				cout << setw(2) << i + 1 << " | "
+				cout <<setw(2)<<setfill(' ') << i + 1 << " | "
 							<< setw(55) << left << buku[i][0] << " | "
 							<< setw(7) << left << buku[i][3] << " | " 
 							<< setw(20) << left << buku[i][4] << " | " 
