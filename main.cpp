@@ -3,7 +3,7 @@ using namespace std;
 
 int main() {
 	int hasil, pilihan1, login;
-	char pilihan2, data, kembali_anggota, kembali_anggota2, ulang, kembali_admin, kembali_admin2, logout, logout2, menu_edit, ulangi_buku, kembali_lihat, kembali_daftar, kembali_login, loginAs;
+	char pilihan2, ulang, kembali_admin, logout, logout2, ulangi_buku, kembali_lihat, kembali_daftar, kembali_login, loginAs, pilihanKet;
 	string Nim, pass, username;
 
 	do
@@ -51,7 +51,7 @@ int main() {
 
 				bool data_valid = false; // Cek validitas data
 				for (int i = 0; i < 99; i++) {
-					if (Nim == user[i][0] && pass == user[i][3]) {
+					if (Nim == user[i][1] && pass == user[i][4]) {
 						pengguna = i;
 						login = 1;
 						data_valid = true;
@@ -65,6 +65,11 @@ int main() {
 				} else {
 					kembali_login = 'n';
 				}
+				if (kembali_login == 'n')
+				{
+					ulang = 'y';
+				}
+				
 			} while (kembali_login == 'y');
 				break;
 			case '2':
@@ -104,7 +109,7 @@ int main() {
 				{
 					kembali_anggota = 'n','N';
 					system("cls");
-					cout << "Selamat datang" << endl;
+					cout << "Selamat datang" << user[pengguna][0] << endl;
 					cout << "1. Tampilkan Buku \n2. Pinjam Buku \n3. Kembalikan Buku \n4. Keterangan anda \n5. Logout" << endl;
 					cout << "Masukkan pilihan anda (isikan pilihan anda dengan memasukkan angka 1/2/3/4/5) : ";
 					cin >> pilihan2;
@@ -141,8 +146,19 @@ int main() {
 						do
 						{
 							system("cls");
-							cout << "keterangan" << endl;
-							tampil();
+							cout << "1. Lihat data \n2. Baca buku \nMasukkan Pilihan Anda : ";
+							cin >> pilihanKet;
+							switch (pilihanKet)
+							{
+							case '1':
+								ketAnggota();
+								break;
+							case '2':
+								bacaBuku();
+								break;
+							default:
+								break;
+							}
 							cout << "Apakah anda ingin kembali? y / n : ";
 							cin >> kembali_anggota;
 						} while (kembali_anggota == 'n' || kembali_anggota == 'N');
@@ -244,6 +260,7 @@ int main() {
 				daftar();
 				cout << "Apakah anda yakin ingin kembali? y / n : ";
 				cin >> kembali_daftar;
+				cin.ignore();
 			} while (kembali_daftar == 'n' || kembali_daftar == 'N');
 			if (kembali_daftar != 'n' || kembali_daftar != 'N')
 			{
