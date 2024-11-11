@@ -6,7 +6,7 @@
 string user[max][8];
 string nama ,nim, fakultas, password, email, fakul, genreBuku, negaraBuku;
 char pass[100], ulang, kembali_anggota;
-int login, pengguna, daftaruser=0, indeksBuku = 5;
+int login, pengguna = 0, daftaruser=0;
 
 
 
@@ -58,9 +58,9 @@ void daftar(){
 
 void pinjam(){
 	system("cls");
-	char konfirmasi;
+	char konfirmasi, pinjamLagi;
 	bool konfirmasiPinjam;
-	int pilihan;
+	int pilihan, indeksBuku = 5;
 	string nim;
 	if (user[pengguna][7].empty())
 	{
@@ -68,6 +68,7 @@ void pinjam(){
 		do
 			{
 				konfirmasi = 'n', ulang = 'n';
+				pinjamLagi = 'n';
 				for (int i = 0; i < maxBuku; i++)
 				{
 					cout << i+1 <<" "<< buku[i][0] << " Keterangan Buku : " << buku[i][6] << endl;
@@ -87,17 +88,15 @@ void pinjam(){
 					cin >> konfirmasi;
 					if (konfirmasi == 'y')
 					{
-						cout << "Masukkan NIM anda : ";
-						cin >> nim;
-						for (int i = 0; i < max; i++)
+						for (int i = 5; i < 8; i++)
 						{
-							if (/* condition */)
+							if (!user[pengguna][i].empty())
 							{
-								/* code */
+								indeksBuku = indeksBuku + 1;
 							}
-							
 						}
-						
+						user[pengguna][indeksBuku] = buku[pilihan-1][0];
+						buku[pilihan-1][6] = "Dipinjam";
 					} else {
 						cout << "Apakah anda ingin meminjam buku yang lain? y/n : ";
 						cin >> ulang;
@@ -105,9 +104,14 @@ void pinjam(){
 				} else {
 					cout << "Buku " << buku[pilihan-1][0] << " telah dipinjam. \nSilahkan pinjam buku yang lain!" << endl;
 					system("pause");
-					ulang = 'y';
+					pinjamLagi = 'y';
 				}
-			} while (ulang == 'y');
+				if (pinjamLagi == 'y')
+				{
+					indeksBuku = 5;
+				}
+				
+			} while (ulang == 'y' || pinjamLagi == 'y');
 	} else {
 		cout << "Anda telah memenuhi batasan peminjaman. \nSilahkan kembalikan buku yang anda pinjam untuk meminjam buku lainnya!" << endl;
 	}
@@ -121,7 +125,7 @@ void ketAnggota(){
 	cout << "Nama anda     : " << user[pengguna][0] << endl;
 	cout << "Nim anda      : " << user[pengguna][1] << endl;
 	cout << "Fakultas anda : " << user[pengguna][2] << endl;
-	cout << "Fakultas anda : " << user[pengguna][3] << endl;
+	cout << "Email anda    : " << user[pengguna][3] << endl;
 	cout << "Password anda : " << user[pengguna][4] << endl << endl;
 	cout << "Buku yang anda pinjam" << endl;
 	for (int i = 5; i < 8; i++)
@@ -233,7 +237,7 @@ void cetakSemuaBuku(){
 		cout << "NO |  Judul Buku                                             | Tahun   | Genre                | Negara        | Tersedia  |" << endl;
 		cout << setw(124) << setfill('-') << "-" << endl;  
 		cout << setfill(' ');
-		for (int i = 0; i < 99; i++)
+		for (int i = 0; i < maxBuku; i++)
 		{      
 				cout <<setw(2)<<setfill(' ') << i + 1 << " | "
 							<< setw(55) << left << buku[i][0] << " | "

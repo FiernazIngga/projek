@@ -50,7 +50,7 @@ int main() {
 				cin >> pass;
 
 				bool data_valid = false; // Cek validitas data
-				for (int i = 0; i < 99; i++) {
+				for (int i = 0; i < max; i++) {
 					if (Nim == user[i][1] && pass == user[i][4]) {
 						pengguna = i;
 						login = 1;
